@@ -14,8 +14,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = await fetch("./data/data.json?v=" + new Date().getTime())
         .then(response => response.json())
     if (data) {
-        console.log(data)
-        languageChanger.languages = data.Languages
+        languageChanger.languages = data.Languages.filter(element => {
+          return element.Selected
+        })
         images.main = data.PhotosSrc
         if (images.main.length == 0) {
           document.getElementsByClassName('wrapper-main')[0].style.background = data.BackgroundColors.Additional
@@ -23,7 +24,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         images.logo = data.LogoSrc[0].ImageFileBase64String
         languageChanger.value = data.Languages[0].Code
         if (languageChanger.languages.length == 1) {
-          
+          document.getElementById('language-changer').style.display = 'none'
+        }
+        if (data.VkLink = "") {
+          document.getElementById('link-vk').style.display = 'none'
+        }
+        if (data.YoutubeLink = "") {
+          document.getElementById('link-youtube').style.display = 'none'
+        }
+        if (data.TelegramLink = "") {
+          document.getElementById('link-telegram').style.display = 'none'
         }
     }
     document.getElementById('site-logo').src = images.logo
@@ -70,7 +80,6 @@ const onLanguageClick = () => {
             }
         }
     } else {
-        console.log('closing language changer')
         const select = document.getElementById('language-select');
         select.remove()
     }
