@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         images.logo = data.LogoSrc[0].ImageFileBase64String
         languageChanger.value = data.Languages[0].Code
-        if (languageChanger.languages.length == 1) {
+        if (languageChanger.languages.length <= 1) {
           document.getElementById('language-changer').style.display = 'none'
         }
         if (data.VkLink = "") {
